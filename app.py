@@ -180,7 +180,7 @@ if frame is not None:
 
     # -------------------- Display --------------------
     st.subheader("Original Image")
-    st.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), use_container_width=True)
+    st.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), width='stretch')
     st.subheader("Original Image RGB Histogram")
     fig_rgb, ax_rgb = plt.subplots()
     colors = ('b', 'g', 'r')
@@ -192,7 +192,7 @@ if frame is not None:
     st.pyplot(fig_rgb)
     
     st.subheader("Processed Image")
-    st.image(cv2.cvtColor(processed, cv2.COLOR_BGR2RGB), use_container_width=True)
+    st.image(cv2.cvtColor(processed, cv2.COLOR_BGR2RGB), width='stretch')
     st.subheader("Processed Image Histogram")
     gray_hist = cv2.cvtColor(processed, cv2.COLOR_BGR2GRAY)
     fig_gray, ax_gray = plt.subplots()
