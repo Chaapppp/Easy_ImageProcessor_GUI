@@ -179,16 +179,27 @@ if frame is not None:
         processed = cv2.cvtColor(thresh, cv2.COLOR_GRAY2BGR)
 
     # -------------------- Display --------------------
+    st.subheader("Original Image")
+    st.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), use_container_width=True)
+    st.subheader("Original Image RGB Histogram")
+    fig_rgb, ax_rgb = plt.subplots()
+    colors = ('b', 'g', 'r')
+    for i, col in enumerate(colors):
+        hist_rgb = cv2.calcHist([frame], [i], None, [256], [0, 256])
+        ax_rgb.plot(hist_rgb, color=col)
+    ax_rgb.set_xlabel("Pixel Value")
+    ax_rgb.set_ylabel("Count")
+    st.pyplot(fig_rgb)
+    
     st.subheader("Processed Image")
     st.image(cv2.cvtColor(processed, cv2.COLOR_BGR2RGB), use_container_width=True)
-
-    st.subheader("Histogram")
+    st.subheader("Processed Image Histogram")
     gray_hist = cv2.cvtColor(processed, cv2.COLOR_BGR2GRAY)
-    fig, ax = plt.subplots()
-    ax.hist(gray_hist.ravel(), bins=256, range=(0, 256))
-    ax.set_xlabel("Pixel value")
-    ax.set_ylabel("Count")
-    st.pyplot(fig)
+    fig_gray, ax_gray = plt.subplots()
+    ax_gray.hist(gray_hist.ravel(), bins=256, range=(0, 256))
+    ax_gray.set_xlabel("Pixel value")
+    ax_gray.set_ylabel("Count")
+    st.pyplot(fig_gray)
 
 else:
     st.info("No image available. Use Camera, Upload, or enter a valid URL.")
